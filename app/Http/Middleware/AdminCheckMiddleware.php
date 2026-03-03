@@ -23,7 +23,7 @@ class AdminCheckMiddleware
 
         if (
             auth('web')->check()
-            && !$user?->isAdmin()
+            && !$user?->isAdmin
         ) {
             $user::logout();
             $request->session()->invalidate();
