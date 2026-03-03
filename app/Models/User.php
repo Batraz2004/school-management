@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\RoleEnum;
+use Attribute;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -72,10 +73,15 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        if ($this->hasRole(RoleEnum::admin->value, 'web')) {
-            return !App::environment('env', 'local') ? str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail() : str_ends_with($this->email, '@dev.com');
-        }
+        // if ($this->hasRole(RoleEnum::admin->value, 'web')) {
+        return !App::environment('env', 'local') ? str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail() : str_ends_with($this->email, '@dev.com');
+        // }
 
-        return false;
+        // return false;
+    }
+
+    public function isAdmin()
+    {
+        return $this->hasRole(RoleEnum::admin->value, 'web');
     }
 }
