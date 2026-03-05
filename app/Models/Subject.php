@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
 class Subject extends Model
 {
     public function schoolClasses(): BelongsToMany

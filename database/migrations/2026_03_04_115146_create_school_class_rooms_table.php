@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('school_class_rooms', function (Blueprint $table) {
             $table->id();
-            $table->integer('numger');
+            $table->integer('number');
             $table->timestamps();
         });
     }

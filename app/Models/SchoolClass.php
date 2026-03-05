@@ -2,11 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
+/**
+ * @property int $id
+ * @property string $name
+ * @property Collection<Homework> $homeworks
+ * @property Collection<Exam> $exams
+ * @property Collection<Lesson> $lessons
+ * @property Collection<Subject> $subjects
+ * @property Collection<User> $users
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
 class SchoolClass extends Model
 {
     protected $guarded = [];
