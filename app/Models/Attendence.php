@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AttendenceStatusEnum;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Attendence extends Model
 {
     protected $guarded = [];
+
+    protected $casts = [
+        'attendence_status' => AttendenceStatusEnum::class,
+    ];
 
     public function lessonInstance(): BelongsTo
     {

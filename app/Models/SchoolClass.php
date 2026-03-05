@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 /**
  * @property int $id
  * @property string $name
@@ -20,6 +22,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class SchoolClass extends Model
 {
+    use SoftDeletes;
+
     protected $guarded = [];
 
     public function homeworks(): HasMany

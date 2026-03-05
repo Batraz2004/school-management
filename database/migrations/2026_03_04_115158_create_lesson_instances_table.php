@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('lesson_instances', function (Blueprint $table) {
             $table->id();
+
             $table->foreignId('lesson_id')->constrained();
             $table->foreignId('teacher_id')->constrained('users');
             $table->foreignId('school_class_room_id')->constrained();
-            $table->date('date_event');
+
             $table->text('lesson_theme')->nullable();
+
+            $table->date('date_event');
             $table->timestamps();
         });
     }

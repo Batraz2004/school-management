@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('school_class_rooms', function (Blueprint $table) {
-            $table->id();
-
-            $table->integer('number');
-
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->softdeletes();
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('school_class_rooms');
+        Schema::table('users', function (Blueprint $table) {
+            $table->delete('deleted_at');
+        });
     }
 };

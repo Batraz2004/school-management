@@ -14,9 +14,14 @@ return new class extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
+
             $table->foreignId('subject_id')->constrained();
             $table->foreignId('student_id')->constrained('users');
+
             $table->enum('evaluation',EvaluationEnum::cases());
+
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
