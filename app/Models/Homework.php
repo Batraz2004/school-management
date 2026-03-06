@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read User $teacher
  * @property-read Subject $subject
  * @property EvaluationEnum $evaluation
- * @property Carbon created_at
- * @property Carbon updated_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Homework extends Model
 {

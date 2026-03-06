@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
- * @property Collection<LessonInstance> $lessonInstances
+ * @property Collection<LessonInstance>|LessonInstance $lessonInstances
  * @property-read SchoolClass $schoolClass
  * @property-read Subject $subject
- * @property Carbon time_start
- * @property Carbon time_end
- * @property Carbon created_at
- * @property Carbon updated_at
+ * @property Carbon $time_start
+ * @property Carbon $time_end
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Lesson extends Model
 {
