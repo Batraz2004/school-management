@@ -20,11 +20,11 @@ class HomeWorkSubmissionForm
                     ->numeric(),
                 Select::make('home_work_status')
                     ->options([
-            'fullfiled' => 'Fullfiled',
-            'partially_made' => 'Partially made',
-            'not_done' => 'Not done',
-            'not_done_excused' => 'Not done excused',
-        ])
+                        'fullfiled' => 'Fullfiled',
+                        'partially_made' => 'Partially made',
+                        'not_done' => 'Not done',
+                        'not_done_excused' => 'Not done excused',
+                    ])
                     ->required(),
             ]);
     }

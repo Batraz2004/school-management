@@ -23,6 +23,8 @@ class AcademicYearResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $modelLabel = 'Учебный год';
+    protected static ?string $pluralModelLabel = 'Учебные годы';
 
     public static function form(Schema $schema): Schema
     {
