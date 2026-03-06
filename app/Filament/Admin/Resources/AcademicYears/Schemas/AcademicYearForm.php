@@ -18,8 +18,8 @@ class AcademicYearForm
                     TextInput::make('name')
                         ->required()
                         ->translateLabel()
-                        // ->disabled()
-                        // ->dehydrated(true)
+                        ->disabled()
+                        ->dehydrated(true)
                         ->translateLabel(),
                 ]),
 
@@ -29,6 +29,7 @@ class AcademicYearForm
                         ->afterStateUpdated(function ($set, $state) {
                             $year = new Carbon($state)->year;
                             $set('name', $year);
+                            $set('date_end', null);
                         })
                         ->required()
                         ->translateLabel(),
