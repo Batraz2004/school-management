@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId('school_class_id')->constrained();
             $table->foreignId('subject_id')->constrained();
 
-            $table->enum('semester', SemesterEnum::cases());
-            $table->enum('week_day', WeekDaysEnum::cases());
+            $table->string('semester');
+            $table->string('week_day');
 
             $table->time('time_start');
             $table->time('time_end');
