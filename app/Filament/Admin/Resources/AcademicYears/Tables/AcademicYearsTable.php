@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\AcademicYears\Tables;
 
+use Carbon\Carbon;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -17,9 +18,16 @@ class AcademicYearsTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable()
-                    ->translateLabel(),
+                TextColumn::make('period')
+                    ->label('Учебный год')
+                    ->getStateUsing(function ($record) {
+                        if (!$record->date_start || !$record->date_end) {
+                            return null;
+                        }
+                        $startYear = Carbon::parse($record->date_start)->year;
+                        $endYear = Carbon::parse($record->date_end)->year;
+                        return $startYear . ' - ' . $endYear;
+                    }),
                 TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
