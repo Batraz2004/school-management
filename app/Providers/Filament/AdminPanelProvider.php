@@ -55,6 +55,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                'redirect.nonadmin' => \App\Http\Middleware\AdminCheckMiddleware::class,
             ]);
     }
 }
