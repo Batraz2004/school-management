@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,6 +22,10 @@ class LessonInstance extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'date_event' => 'date',
+    ];
+
     public function attendences(): HasMany
     {
         return $this->hasMany(Attendence::class);
@@ -39,5 +44,12 @@ class LessonInstance extends Model
     public function schoolClassRoom(): BelongsTo
     {
         return $this->belongsTo(SchoolClassRoom::class);
+    }
+
+    public function getNameAttribute()
+    {
+        $eventDate = (string)Carbon::parse($this->date_event)->year;
+
+        return $eventDate;
     }
 }

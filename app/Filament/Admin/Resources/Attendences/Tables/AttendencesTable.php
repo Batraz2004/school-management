@@ -15,19 +15,24 @@ class AttendencesTable
         return $table
             ->columns([
                 TextColumn::make('student.name')
-                    ->searchable(),
+                    ->searchable()
+                    ->translateLabel(),
                 TextColumn::make('lessonInstance.id')
-                    ->searchable(),
+                    ->searchable()
+                    ->translateLabel(),
                 TextColumn::make('attendence_status')
-                    ->badge(),
+                    ->badge()
+                    ->translateLabel(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
             ])
             ->filters([
                 //

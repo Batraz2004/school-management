@@ -2,7 +2,9 @@
 
 namespace App\Filament\Admin\Resources\SchoolClasses\Schemas;
 
-use Filament\Forms\Components\TextInput;
+use App\Enums\SchoolClassNameEnum;
+use App\Models\AcademicYear;
+use Filament\Forms\Components\Select;
 use Filament\Schemas\Schema;
 
 class SchoolClassForm
@@ -11,11 +13,15 @@ class SchoolClassForm
     {
         return $schema
             ->components([
-                TextInput::make('name')
-                    ->required(),
-                TextInput::make('academic_years_id')
+                Select::make('name')
+                    ->options(SchoolClassNameEnum::toArrayValues())
                     ->required()
-                    ->numeric(),
+                    ->translateLabel(),
+                Select::make('academic_year_id')
+                    ->preload()
+                    ->options(AcademicYear::all()->pluck('period', 'id'))
+                    ->required()
+                    ->translateLabel(),
             ]);
     }
 }

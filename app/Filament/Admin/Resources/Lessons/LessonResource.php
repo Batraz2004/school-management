@@ -20,6 +20,9 @@ class LessonResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?string $pluralModelLabel = "Расписания занятии";
+    protected static ?string $modelLabel = "Расписание занятии";
+
     public static function form(Schema $schema): Schema
     {
         return LessonForm::configure($schema);

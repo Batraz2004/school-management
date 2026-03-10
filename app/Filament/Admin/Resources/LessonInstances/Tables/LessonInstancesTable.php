@@ -15,22 +15,28 @@ class LessonInstancesTable
         return $table
             ->columns([
                 TextColumn::make('lesson.id')
-                    ->searchable(),
+                    ->searchable()
+                    ->translateLabel(),
                 TextColumn::make('teacher.name')
-                    ->searchable(),
+                    ->searchable()
+                    ->translateLabel(),
                 TextColumn::make('schoolClassRoom.id')
-                    ->searchable(),
+                    ->searchable()
+                    ->translateLabel(),
                 TextColumn::make('date_event')
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->translateLabel(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
             ])
             ->filters([
                 //

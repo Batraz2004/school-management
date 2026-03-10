@@ -23,7 +23,7 @@ class AttendenceForm
                         ->required()
                         ->translateLabel(),
                     Select::make('attendence_status')
-                        ->options(AttendenceStatusEnum::class)
+                        ->options(AttendenceStatusEnum::labels())
                         ->required()
                         ->translateLabel(),
                 ])

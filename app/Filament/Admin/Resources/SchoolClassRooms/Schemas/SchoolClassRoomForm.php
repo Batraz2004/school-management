@@ -13,7 +13,8 @@ class SchoolClassRoomForm
             ->components([
                 TextInput::make('number')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->translateLabel(),
             ]);
     }
 }

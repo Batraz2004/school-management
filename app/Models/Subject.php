@@ -17,6 +17,8 @@ class Subject extends Model
 {
     use SoftDeletes;
 
+    protected $guarded = [];
+
     public function schoolClasses(): BelongsToMany
     {
         return $this->belongsToMany(SchoolClass::class);

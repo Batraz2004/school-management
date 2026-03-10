@@ -22,6 +22,9 @@ class SubjectResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?string $pluralModelLabel = "Учебные предметы";
+    protected static ?string $modelLabel = "Учебный предмет";
+
     public static function form(Schema $schema): Schema
     {
         return SubjectForm::configure($schema);

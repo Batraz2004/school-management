@@ -7,6 +7,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Contracts\Support\Htmlable;
 
 class EditGrade extends EditRecord
 {
@@ -19,5 +20,10 @@ class EditGrade extends EditRecord
             ForceDeleteAction::make(),
             RestoreAction::make(),
         ];
+    }
+
+    public function getTitle(): string|Htmlable
+    {
+        return 'Редактирование оценки';
     }
 }

@@ -15,31 +15,40 @@ class HomeworkTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->translateLabel(),
                 TextColumn::make('schoolClass.name')
-                    ->searchable(),
+                    ->searchable()
+                    ->translateLabel(),
                 TextColumn::make('teacher.name')
-                    ->searchable(),
+                    ->searchable()
+                    ->translateLabel(),
                 TextColumn::make('subject.name')
-                    ->searchable(),
+                    ->searchable()
+                    ->translateLabel(),
                 TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 TextColumn::make('start_day')
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->translateLabel(),
                 TextColumn::make('last_day')
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->translateLabel(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
             ])
             ->filters([
                 //

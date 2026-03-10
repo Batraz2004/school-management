@@ -22,6 +22,9 @@ class AttendenceResource extends Resource
 
     // protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $modelLabel = 'Посещение';
+    protected static ?string $pluralModelLabel = 'Посещения';
+
     public static function form(Schema $schema): Schema
     {
         return AttendenceForm::configure($schema);

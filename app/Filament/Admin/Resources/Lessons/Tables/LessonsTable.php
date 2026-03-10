@@ -15,27 +15,35 @@ class LessonsTable
         return $table
             ->columns([
                 TextColumn::make('schoolClass.name')
-                    ->searchable(),
+                    ->searchable()
+                    ->translateLabel(),
                 TextColumn::make('subject.name')
-                    ->searchable(),
+                    ->searchable()
+                    ->translateLabel(),
                 TextColumn::make('semester')
-                    ->badge(),
+                    ->badge()
+                    ->translateLabel(),
                 TextColumn::make('week_day')
-                    ->badge(),
+                    ->badge()
+                    ->translateLabel(),
                 TextColumn::make('time_start')
                     ->time()
-                    ->sortable(),
+                    ->sortable()
+                    ->translateLabel(),
                 TextColumn::make('time_end')
                     ->time()
-                    ->sortable(),
+                    ->sortable()
+                    ->translateLabel(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
             ])
             ->filters([
                 //

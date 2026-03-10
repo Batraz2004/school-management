@@ -20,6 +20,9 @@ class SchoolClassRoomResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?string $pluralModelLabel = "Номера кабинетов";
+    protected static ?string $modelLabel = "Номер кабинета";
+
     public static function form(Schema $schema): Schema
     {
         return SchoolClassRoomForm::configure($schema);

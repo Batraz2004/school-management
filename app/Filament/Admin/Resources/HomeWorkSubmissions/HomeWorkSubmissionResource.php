@@ -20,6 +20,9 @@ class HomeWorkSubmissionResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?string $modelLabel = 'Информация о сдаче дз';
+    protected static ?string $pluralModelLabel = 'Сдача домашних заданий';
+
     public static function form(Schema $schema): Schema
     {
         return HomeWorkSubmissionForm::configure($schema);

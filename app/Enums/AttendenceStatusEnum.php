@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Traits\EnumTrait;
+
 enum AttendenceStatusEnum: string
 {
+    use EnumTrait;
+
     case present = 'present';
     case absent = 'absent';
     case excused = 'excused';

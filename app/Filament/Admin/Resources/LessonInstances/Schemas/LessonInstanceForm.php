@@ -14,18 +14,24 @@ class LessonInstanceForm
         return $schema
             ->components([
                 Select::make('lesson_id')
-                    ->relationship('lesson', 'id')
-                    ->required(),
+                    ->preload()
+                    ->relationship('lesson.subject', 'name')
+                    ->required()
+                    ->translateLabel(),
                 Select::make('teacher_id')
                     ->relationship('teacher', 'name')
-                    ->required(),
+                    ->required()
+                    ->translateLabel(),
                 Select::make('school_class_room_id')
                     ->relationship('schoolClassRoom', 'id')
-                    ->required(),
+                    ->required()
+                    ->translateLabel(),
                 Textarea::make('lesson_theme')
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->translateLabel(),
                 DatePicker::make('date_event')
-                    ->required(),
+                    ->required()
+                    ->translateLabel(),
             ]);
     }
 }

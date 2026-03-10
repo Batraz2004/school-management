@@ -22,6 +22,9 @@ class GradeResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?string $pluralModelLabel = 'Оценки';
+    protected static ?string $label = 'Оценка';
+
     public static function form(Schema $schema): Schema
     {
         return GradeForm::configure($schema);

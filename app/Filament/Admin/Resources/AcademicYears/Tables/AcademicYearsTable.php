@@ -19,7 +19,6 @@ class AcademicYearsTable
         return $table
             ->columns([
                 TextColumn::make('period')
-                    ->label('Учебный год')
                     ->getStateUsing(function ($record) {
                         if (!$record->date_start || !$record->date_end) {
                             return null;
@@ -27,19 +26,23 @@ class AcademicYearsTable
                         $startYear = Carbon::parse($record->date_start)->year;
                         $endYear = Carbon::parse($record->date_end)->year;
                         return $startYear . ' - ' . $endYear;
-                    }),
+                    })
+                    ->translateLabel(),
                 TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
             ])
             ->filters([
                 TrashedFilter::make(),

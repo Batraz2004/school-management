@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Traits\EnumTrait;
+
 enum WeekDaysEnum: string
 {
+    use EnumTrait;
+
     case monday = 'monday';
     case tuesday = 'tuesday';
     case wednesday = 'wednesday';

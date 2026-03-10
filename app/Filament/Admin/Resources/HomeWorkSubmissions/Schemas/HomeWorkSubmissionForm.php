@@ -2,8 +2,10 @@
 
 namespace App\Filament\Admin\Resources\HomeWorkSubmissions\Schemas;
 
+use App\Enums\HomeWorkStatusEnum;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class HomeWorkSubmissionForm
@@ -12,20 +14,25 @@ class HomeWorkSubmissionForm
     {
         return $schema
             ->components([
-                Select::make('student_id')
-                    ->relationship('student', 'name')
-                    ->required(),
-                TextInput::make('homework_id')
-                    ->required()
-                    ->numeric(),
-                Select::make('home_work_status')
-                    ->options([
-                        'fullfiled' => 'Fullfiled',
-                        'partially_made' => 'Partially made',
-                        'not_done' => 'Not done',
-                        'not_done_excused' => 'Not done excused',
-                    ])
-                    ->required(),
-            ]);
+                Section::make()->schema([
+                    Select::make('student_id')
+                        ->relationship('student', 'name')
+                        ->required()
+                        ->translateLabel(),
+                    Select::make('homework_id')
+                        ->relationship('homework', 'name')
+                        ->required()
+                        ->translateLabel(),
+                    Select::make('home_work_status')
+                        ->options(HomeWorkStatusEnum::labels())
+                        ->required()
+                        ->translateLabel(),
+                ])->columnSpan(2),
+
+                Section::make()->schema([
+                    DateTimePicker::make('created_at')->translateLabel(),
+                    DateTimePicker::make('updated_at')->translateLabel(),
+                ])->columnSpan(1),
+            ])->columns(3);
     }
 }

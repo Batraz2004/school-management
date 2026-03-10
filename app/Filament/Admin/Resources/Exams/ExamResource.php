@@ -24,6 +24,9 @@ class ExamResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $modelLabel = 'Экзамен';
+    protected static ?string $pluralModelLabel = 'Экзамены';
+
     public static function form(Schema $schema): Schema
     {
         return ExamForm::configure($schema);

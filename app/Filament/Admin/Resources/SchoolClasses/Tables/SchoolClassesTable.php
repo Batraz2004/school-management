@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\SchoolClasses\Tables;
 
+use App\Enums\SchoolClassNameEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -18,22 +19,29 @@ class SchoolClassesTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('academic_years_id')
-                    ->numeric()
-                    ->sortable(),
+                    // ->formatStateUsing(function ($state) {
+                        // $valueFromEnum = SchoolClassNameEnum::tryFrom($state);
+                        // return $valueFromEnum;
+                    // })
+                    ->searchable()
+                    ->translateLabel(),
+                TextColumn::make('academicYear.period')
+                ->translateLabel(),
                 TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false)
+                    ->translateLabel(),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false)
+                    ->translateLabel(),
             ])
             ->filters([
                 TrashedFilter::make(),

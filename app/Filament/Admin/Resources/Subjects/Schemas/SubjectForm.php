@@ -12,7 +12,8 @@ class SubjectForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required(),
+                    ->required()
+                    ->translateLabel(),
             ]);
     }
 }

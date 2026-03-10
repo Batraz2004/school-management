@@ -2,11 +2,13 @@
 
 namespace App\Filament\Admin\Resources\Homework\Schemas;
 
+use App\Enums\RoleEnum;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Builder;
 
 class HomeworkForm
 {
@@ -15,23 +17,28 @@ class HomeworkForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required(),
+                    ->required()->translateLabel(),
                 Textarea::make('description')
                     ->required()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()->translateLabel(),
                 Select::make('school_class_id')
                     ->relationship('schoolClass', 'name')
-                    ->required(),
+                    ->required()->translateLabel(),
                 Select::make('teacher_id')
-                    ->relationship('teacher', 'name')
-                    ->required(),
+                    ->relationship('teacher', 'name', function (Builder $query) {
+                        $query->whereHas('roles', //связь из трейта hasRoles
+                        function (Builder $q) {
+                            return $q->where('name', RoleEnum::teacher->value);
+                        }
+                        );
+                    })->translateLabel(),
                 Select::make('subject_id')
                     ->relationship('subject', 'name')
-                    ->required(),
+                    ->required()->translateLabel(),
                 DatePicker::make('start_day')
-                    ->required(),
+                    ->required()->translateLabel(),
                 DatePicker::make('last_day')
-                    ->required(),
+                    ->required()->translateLabel(),
             ]);
     }
 }

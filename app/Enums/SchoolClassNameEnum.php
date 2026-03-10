@@ -37,4 +37,15 @@ enum SchoolClassNameEnum: string
     case className11A = '11а';
     case className11B = '11б';
     case className11C = '11в';
+
+    public static function toArrayValues()
+    {
+        $cases = self::cases();
+        $values = [];
+        foreach ($cases as $case) {
+            $values[$case->value] = $case->value;
+        }
+
+        return $values;
+    }
 }
