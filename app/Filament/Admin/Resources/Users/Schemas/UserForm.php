@@ -27,11 +27,11 @@ class UserForm
                     ->password()
                     ->required()
                     ->translateLabel(),
-                Textarea::make('two_factor_secret')
-                    ->columnSpanFull()
+                TextInput::make('two_factor_secret')
+                    ->password()
                     ->translateLabel(),
-                Textarea::make('two_factor_recovery_codes')
-                    ->columnSpanFull()
+                TextInput::make('two_factor_recovery_codes')
+                    ->password()
                     ->translateLabel(),
                 DateTimePicker::make('two_factor_confirmed_at')
                 ->translateLabel(),
