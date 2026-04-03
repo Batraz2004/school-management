@@ -14,6 +14,7 @@ class UserForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('ФИО')
                     ->required()
                     ->translateLabel(),
                 TextInput::make('email')

@@ -32,5 +32,6 @@
     "Password": "Пароль",
     "Two factor secret": "Секретный ключ двухфакторной аутентификации",
     "Two factor recovery codes": "Резервные коды двухфакторной аутентификации",
-    "Two factor confirmed at": "Дата двухфакторного подвтвержения"
+    "Two factor confirmed at": "Дата двухфакторного подвтвержения",
+    "role": "Роль"
 }
