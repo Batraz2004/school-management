@@ -26,7 +26,7 @@ class UsersTable
                     ->searchable()
                     ->translateLabel(),
                 TextColumn::make('roles.name')
-                    ->label('role')
+                    ->label('Role')
                     ->formatStateUsing(function($state) {
                         $roleLabel = RoleEnum::tryFrom($state)->label() ?? '';
                         return $roleLabel;

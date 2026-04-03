@@ -47,7 +47,6 @@ class User extends Authenticatable implements FilamentUser
      * @var list<string>
      */
     protected $hidden = [
-        'password',
         'two_factor_secret',
         'two_factor_recovery_codes',
         'remember_token',
@@ -96,6 +95,6 @@ class User extends Authenticatable implements FilamentUser
 
     public function schoolClasses(): BelongsToMany
     {
-        return $this->belongsToMany(SchoolClass::class);
+        return $this->belongsToMany(SchoolClass::class, 'user_classes');
     }
 }
