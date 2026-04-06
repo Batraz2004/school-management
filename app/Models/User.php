@@ -62,6 +62,8 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'two_factor_secret' => 'hashed',
+            'two_factor_recovery_codes' => 'hashed',
         ];
     }
 
