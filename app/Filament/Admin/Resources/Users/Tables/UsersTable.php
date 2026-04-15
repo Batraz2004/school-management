@@ -93,7 +93,7 @@ class UsersTable
                             $file = $data['file'];
 
                             $importSerivce = app(StudentImport::class);
-                            $importSerivce->import($file, $action);
+                            $importSerivce->import($file);
 
                             $failedRecords = $importSerivce->getFailedRecordsByImport();
 
