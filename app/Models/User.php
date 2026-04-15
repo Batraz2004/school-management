@@ -7,7 +7,10 @@ namespace App\Models;
 use App\Enums\RoleEnum;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
@@ -15,10 +18,15 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * @property int $id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
 class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable, HasRoles;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable, HasRoles, SoftDeletes;
 
     protected $guard_name  = 'web';
 
@@ -72,10 +80,22 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        if ($this->hasRole(RoleEnum::admin->value, 'web')) {
-            return !App::environment('env', 'local') ? str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail() : str_ends_with($this->email, '@dev.com');
-        }
+        // if ($this->hasRole(RoleEnum::admin->value, 'web')) {
+        return !App::environment('env', 'local') ? str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail() : str_ends_with($this->email, '@dev.com');
+        // }
 
-        return false;
+        // return false;
+    }
+
+    protected function isAdmin(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->hasRole(RoleEnum::admin->value, 'web'),
+        );
+    }
+
+    public function schoolClasses(): BelongsToMany
+    {
+        return $this->belongsToMany(SchoolClass::class);
     }
 }
