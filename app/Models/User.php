@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
@@ -22,6 +23,9 @@ use Spatie\Permission\Traits\HasRoles;
  * @property int $id
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * 
+ * @method Builder role
+ * @method Builder withoutRole
  */
 class User extends Authenticatable implements FilamentUser
 {
@@ -47,7 +51,6 @@ class User extends Authenticatable implements FilamentUser
      * @var list<string>
      */
     protected $hidden = [
-        'password',
         'two_factor_secret',
         'two_factor_recovery_codes',
         'remember_token',
@@ -63,6 +66,8 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'two_factor_secret' => 'hashed',
+            'two_factor_recovery_codes' => 'hashed',
         ];
     }
 
@@ -96,6 +101,10 @@ class User extends Authenticatable implements FilamentUser
 
     public function schoolClasses(): BelongsToMany
     {
-        return $this->belongsToMany(SchoolClass::class);
+        return $this->belongsToMany(SchoolClass::class, 'user_classes');
+    }
+
+    public function whereStudent(){
+
     }
 }

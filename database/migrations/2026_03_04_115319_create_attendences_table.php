@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('users');
             $table->foreignId('lesson_instance_id')->constrained();
 
-            $table->enum('attendence_status', AttendenceStatusEnum::cases());
+            $table->string('attendence_status');
 
             $table->unique(['lesson_instance_id', 'student_id']);
 

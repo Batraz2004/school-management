@@ -25,7 +25,7 @@ class Exam extends Model
 
     public function schoolClass(): BelongsTo
     {
-        return $this->belongsTo(schoolClass::class);
+        return $this->belongsTo(SchoolClass::class);
     }
 
     public function subject(): BelongsTo

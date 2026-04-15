@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->string('name');
 
-            $table->foreignId('school_class_id')->constrained();
+            $table->foreignId('school_class_id')->nullable()->constrained();
             $table->foreignId('teacher_id')->constrained('users');
             $table->foreignId('subject_id')->constrained();
 

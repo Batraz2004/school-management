@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('users');
             $table->foreignId('homework_id')->constrained();
 
-            $table->enum('home_work_status', HomeWorkStatusEnum::cases());
+            $table->string('home_work_status');
 
             $table->timestamps();
         });

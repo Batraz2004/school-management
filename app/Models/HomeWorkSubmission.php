@@ -26,6 +26,11 @@ class HomeWorkSubmission extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function homework(): BelongsTo
+    {
+        return $this->belongsTo(Homework::class);
+    }
+
     public function lessonInstance(): BelongsTo
     {
         return $this->belongsTo(LessonInstance::class);

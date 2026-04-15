@@ -16,4 +16,15 @@ enum EvaluationEnum: string
     {
         return (float) $this->value;
     }
+
+    public static function floatValues(): array
+    {
+        $result = [];
+
+        foreach(self::cases() as $case){
+            $result[$case->value] = $case->toFloat();
+        }
+
+        return $result;
+    }
 }

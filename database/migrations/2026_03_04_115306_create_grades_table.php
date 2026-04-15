@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('subject_id')->constrained();
             $table->foreignId('student_id')->constrained('users');
 
-            $table->enum('evaluation',EvaluationEnum::cases());
+            $table->float('evaluation', 2);
 
             $table->softDeletes();
 
