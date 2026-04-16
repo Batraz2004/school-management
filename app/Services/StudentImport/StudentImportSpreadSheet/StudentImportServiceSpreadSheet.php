@@ -5,13 +5,13 @@ namespace App\Services\StudentImport\StudentImportSpreadSheet;
 use App\Enums\RoleEnum;
 use App\Models\SchoolClass;
 use App\Models\User;
-use App\Services\StudentImport\StudentImport;
+use App\Services\StudentImport\StudentImportService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class StudentImportSpreadSheet implements StudentImport
+class StudentImportServiceSpreadSheet implements StudentImportService
 {
     public function __construct() {}
 

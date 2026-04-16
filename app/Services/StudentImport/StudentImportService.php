@@ -4,7 +4,7 @@ namespace App\Services\StudentImport;
 
 use Illuminate\Http\UploadedFile;
 
-interface StudentImport
+interface StudentImportService
 {
     public function import(UploadedFile $file): void;
     public function getFailedRecordsByImport(): array;

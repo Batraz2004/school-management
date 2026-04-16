@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Services\StudentImport\StudentImport;
-use App\Services\StudentImport\StudentImportSpreadSheet\StudentImportSpreadSheet;
+use App\Services\StudentImport\StudentImportService;
+use App\Services\StudentImport\StudentImportSpreadSheet\StudentImportServiceSpreadSheet;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -15,8 +15,8 @@ class StudentImportServiceProvider extends ServiceProvider implements Deferrable
      */
     public function register(): void
     {
-        $this->app->singleton(StudentImport::class, function(Application $app){
-            return new StudentImportSpreadSheet();
+        $this->app->singleton(StudentImportService::class, function(Application $app){
+            return new StudentImportServiceSpreadSheet();
         });
     }
 
@@ -30,6 +30,6 @@ class StudentImportServiceProvider extends ServiceProvider implements Deferrable
 
     public function provides(): array
     {
-        return [StudentImport::class];
+        return [StudentImportService::class];
     }
 }

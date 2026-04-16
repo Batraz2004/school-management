@@ -4,7 +4,7 @@ namespace App\Filament\Admin\Resources\Users\Tables;
 
 use App\Enums\RoleEnum;
 use App\Models\User;
-use App\Services\StudentImport\StudentImport;
+use App\Services\StudentImport\StudentImportService;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -92,7 +92,7 @@ class UsersTable
                             /** @var UploadedFile $file */
                             $file = $data['file'];
 
-                            $importSerivce = app(StudentImport::class);
+                            $importSerivce = app(StudentImportService::class);
                             $importSerivce->import($file);
 
                             $failedRecords = $importSerivce->getFailedRecordsByImport();
