@@ -20,52 +20,53 @@ class StudentImportServiceSpreadSheet implements StudentImportService
     public function import(UploadedFile $file): void
     {
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file->getRealPath());
-            $studentSheet = $spreadsheet->getSheet(0);
+        $studentSheet = $spreadsheet->getSheet(0);
 
-            $studentSheetArr = $studentSheet->toArray();
-            unset($studentSheetArr[0]); //заголовки не нужны
+        $studentSheetArr = $studentSheet->toArray();
+        unset($studentSheetArr[0]); //заголовки не нужны
 
-            //форматирование ключей в более читабильный вид и групирвока по этим ключам
-            $studentsByClasses = $this->formatingKeysFromIdToSlug($studentSheetArr);
+        //форматирование ключей в более читабильный вид и групирвока по этим ключам
+        $studentsByClasses = $this->formatingKeysFromIdToSlug($studentSheetArr);
 
-            //создание учебных годов, классов и студентов:
-            foreach ($studentsByClasses as $class => $students) {
-                $schoolClass = SchoolClass::query()->firstWhere(['name' => $class]);
+        //создание учебных годов, классов и студентов:
+        foreach ($studentsByClasses as $class => $students) {
+            $schoolClass = SchoolClass::query()->firstWhere(['name' => $class]);
 
-                if (blank($schoolClass)) {
-                    $this->failedsByImport[] = "класс $class";
+            if (blank($schoolClass)) {
+                $this->failedsByImport[] = "класс $class";
+
+                Log::debug('произошла ошибка', [
+                    'контекст' => "учебынй ккласс $class не сушествует",
+                ]);
+
+                continue;
+            }
+
+            foreach ($students as $student) {
+                try {
+                    DB::transaction(function () use ($schoolClass, $student) {
+                        /** @var User $user*/
+                        $user = User::query()
+                            ->firstOrCreate(['name' => $student['email']], $student);
+
+                        $schoolClass->users()->save($user);
+
+                        $student = $user->assignRole(RoleEnum::student->value);
+                    });
+                } catch (Throwable $th) {
+                    $studentName = "{$student['name']} {$schoolClass->name} класса";
+
+                    $this->failedsByImport[] = "ученик $studentName";
 
                     Log::debug('произошла ошибка', [
-                        'контекст' => "учебынй ккласс $class не сушествует",
+                        'контекст' => "при импорте ученика $studentName",
+                        'код ошибки' => $th->getCode(),
+                        'текст ошибки' => $th->getMessage(),
+                        'номер строки' => $th->getLine(),
                     ]);
-
-                    continue;
-                }
-
-                foreach ($students as $student) {
-                    try {
-                        DB::transaction(function () use ($schoolClass, $student) {
-                            /** @var User $user*/
-                            $user = $schoolClass
-                                ->users()
-                                ->updateOrCreate(['name' => $student['name']], $student);
-
-                            $student = $user->assignRole(RoleEnum::student->value);
-                        });
-                    } catch (Throwable $th) {
-                        $studentName = "{$student['name']} {$schoolClass->name}";
-
-                        $this->failedsByImport[] = "ученик $studentName";
-
-                        Log::debug('произошла ошибка', [
-                            'контекст' => "при импорте ученика $studentName",
-                            'код ошибки' => $th->getCode(),
-                            'текст ошибки' => $th->getMessage(),
-                            'номер строки' => $th->getLine(),
-                        ]);
-                    }
                 }
             }
+        }
     }
 
     private function formatingKeysFromIdToSlug(array $data): array

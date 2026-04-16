@@ -3,7 +3,7 @@
 namespace App\Filament\Admin\Resources\Users\Tables;
 
 use App\Enums\RoleEnum;
-use App\Models\User;
+use App\Services\StudentExport\StudentExportExcel\StudentExportServiceExcel;
 use App\Services\StudentImport\StudentImportService;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -130,9 +130,31 @@ class UsersTable
                         ->title('Импорт не был завершен или был завершен частично')),
                 Action::make('students export')
                     ->label('Экспорт учеников')
-                    ->action(function (array $data) {
-                        $students = User::role(RoleEnum::student->value)->get();
-                    }),
+                    ->action(function (Action $action) {
+                        try {
+                            $studentExporter = app(StudentExportServiceExcel::class);
+                            $studentExporter->export();
+
+                            $action->success();
+                        } catch (Throwable $th) {
+                            $action->failure();
+
+                            Log::debug('произошла ошибка', [
+                                'контекст' => "при экспорте",
+                                'код ошибки' => $th->getCode(),
+                                'текст ошибки' => $th->getMessage(),
+                                'номер строки' => $th->getLine(),
+                            ]);
+                        }
+                    })
+                    ->successNotification(Notification::make()
+                        ->success()
+                        ->persistent()
+                        ->title('Экспорт завершен'))
+                    ->failureNotification(Notification::make()
+                        ->danger()
+                        ->persistent()
+                        ->title('Не удалось экспортировать файл')),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
