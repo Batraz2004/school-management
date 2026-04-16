@@ -5,7 +5,6 @@ namespace App\Filament\Admin\Resources\Users\Tables;
 use App\Enums\RoleEnum;
 use App\Models\User;
 use App\Services\StudentImport\StudentImport;
-use App\Services\StudentImport\StudentImportSpreadSheet\StudentImportSpreadSheet;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -76,6 +75,7 @@ class UsersTable
                 Action::make('students import')
                     ->label('Импорт учеников')
                     ->modalSubmitActionLabel('Импорт')
+                    ->closeModalByClickingAway(false)
                     ->schema([
                         FileUpload::make('file')
                             ->preserveFilenames()
@@ -83,7 +83,7 @@ class UsersTable
                                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                                 'application/vnd.ms-excel'
                             ])
-                            ->required()
+                            ->required(true)
                             ->storeFiles(false) // иначе вместо объекта UploadedFile вернется только название файла
                             ->label('перенесите сюда файл')
                     ])
