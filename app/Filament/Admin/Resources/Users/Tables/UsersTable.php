@@ -2,9 +2,11 @@
 
 namespace App\Filament\Admin\Resources\Users\Tables;
 
+use App\Enums\ExportFormatsEnum;
 use App\Enums\RoleEnum;
 use App\Services\StudentExport\StudentExportExcel\StudentExportServiceExcel;
 use App\Services\StudentImport\StudentImportService;
+use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -12,12 +14,14 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 
 class UsersTable
@@ -87,7 +91,7 @@ class UsersTable
                             ->storeFiles(false) // иначе вместо объекта UploadedFile вернется только название файла
                             ->label('перенесите сюда файл')
                     ])
-                    ->action(function (array $data, Action $action) {
+                    ->action(function (Action $action, array $data) {
                         try {
                             /** @var UploadedFile $file */
                             $file = $data['file'];
@@ -130,12 +134,34 @@ class UsersTable
                         ->title('Импорт не был завершен или был завершен частично')),
                 Action::make('students export')
                     ->label('Экспорт учеников')
-                    ->action(function (Action $action) {
+                    ->schema([
+                        Select::make('format')
+                            ->options(ExportFormatsEnum::labels()),
+                    ])
+                    ->action(function (Action $action, array $data) {
                         try {
+                            $formatValue = ExportFormatsEnum::{$data['format']}->value;
                             $studentExporter = app(StudentExportServiceExcel::class);
-                            $studentExporter->export();
+                            $writer = $studentExporter->export($formatValue);
+
+                            $date = Carbon::now();
+                            $fileName = "students_$date.$formatValue";
+
+                            $responce = new StreamedResponse(
+                                function () use ($writer) {
+                                    $writer->save('php://output');
+                                },
+                                200,
+                                [
+                                    'Content-Type' => 'application/vnd.ms-excel',
+                                    'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+                                    'Cache-Control' => 'max-age=0',
+                                ]
+                            );
 
                             $action->success();
+
+                            return $responce;
                         } catch (Throwable $th) {
                             $action->failure();
 
@@ -149,7 +175,6 @@ class UsersTable
                     })
                     ->successNotification(Notification::make()
                         ->success()
-                        ->persistent()
                         ->title('Экспорт завершен'))
                     ->failureNotification(Notification::make()
                         ->danger()
