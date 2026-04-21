@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\StudentExport\StudentExportService;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Writer\BaseWriter;
 
 class StudentExportServiceExcel implements StudentExportService
@@ -44,9 +45,10 @@ class StudentExportServiceExcel implements StudentExportService
             $row++;
         }
 
-        // Автоширина столбцов (опционально)
+        // параметры колонок
         foreach (range('A', 'D') as $col) {
             $sheet->getColumnDimension($col)->setAutoSize(true);
+            $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         }
 
         $formatClass = ExportFormatsEnum::tryFrom($format)?->formatType();
