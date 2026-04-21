@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\StudentExport\StudentExportExcel;
+namespace App\Services\StudentExport\StudentExportConcrete;
 
 use App\Enums\ExportFormatsEnum;
 use App\Enums\RoleEnum;
