@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\StudentExport\StudentExportExcel\StudentExportServiceExcel;
+use App\Services\StudentExport\StudentExportConcrete\StudentExportServiceExcel;
 use App\Services\StudentExport\StudentExportService;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Foundation\Application;

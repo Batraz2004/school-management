@@ -4,7 +4,7 @@ namespace App\Filament\Admin\Resources\Users\Tables;
 
 use App\Enums\ExportFormatsEnum;
 use App\Enums\RoleEnum;
-use App\Services\StudentExport\StudentExportExcel\StudentExportServiceExcel;
+use App\Services\StudentExport\StudentExportService;
 use App\Services\StudentImport\StudentImportService;
 use Carbon\Carbon;
 use Filament\Actions\Action;
@@ -141,7 +141,7 @@ class UsersTable
                     ->action(function (Action $action, array $data) {
                         try {
                             $formatValue = ExportFormatsEnum::{$data['format']}->value;
-                            $studentExporter = app(StudentExportServiceExcel::class);
+                            $studentExporter = app(StudentExportService::class);
                             $writer = $studentExporter->export($formatValue);
 
                             $date = Carbon::now();
