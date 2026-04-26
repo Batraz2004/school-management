@@ -76,8 +76,7 @@ class UsersTable
                     ->relationship('roles', 'name')
                     ->multiple()
                     ->preload()
-                    ->label('Роль')
-                    ->hidden(),
+                    ->label('Роль'),
                 SelectFilter::make('schoolClasses')
                     ->relationship('schoolClasses', 'name')
                     ->multiple()
