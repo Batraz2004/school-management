@@ -24,7 +24,7 @@ class GradesTable
                     ->searchable()
                     ->translateLabel(),
                 TextColumn::make('evaluation')
-                    ->badge(),
+                    ->badge()->translateLabel(),
                 TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
