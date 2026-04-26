@@ -26,7 +26,6 @@ class HomeworkResource extends Resource
     protected static ?string $pluralModelLabel = 'Домашние задания';
     protected static ?string $modelLabel = 'Домашнее задание';
 
-
     public static function form(Schema $schema): Schema
     {
         return HomeworkForm::configure($schema);

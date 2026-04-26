@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum RoleEnum: string{
     case admin = 'admin';
-    case student = 'sudent';
+    case student = 'student';
     case teacher = 'teacher';
 
     public function label(): string

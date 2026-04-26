@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources\SchoolClasses;
 use App\Filament\Admin\Resources\SchoolClasses\Pages\CreateSchoolClass;
 use App\Filament\Admin\Resources\SchoolClasses\Pages\EditSchoolClass;
 use App\Filament\Admin\Resources\SchoolClasses\Pages\ListSchoolClasses;
+use App\Filament\Admin\Resources\SchoolClasses\RelationManagers\UsersRelationManager;
 use App\Filament\Admin\Resources\SchoolClasses\Schemas\SchoolClassForm;
 use App\Filament\Admin\Resources\SchoolClasses\Tables\SchoolClassesTable;
 use App\Models\SchoolClass;
@@ -38,7 +39,7 @@ class SchoolClassResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            UsersRelationManager::class,
         ];
     }
 

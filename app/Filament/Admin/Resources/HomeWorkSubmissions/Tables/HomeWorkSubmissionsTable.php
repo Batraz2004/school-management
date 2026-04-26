@@ -3,12 +3,16 @@
 namespace App\Filament\Admin\Resources\HomeWorkSubmissions\Tables;
 
 use App\Enums\HomeWorkStatusEnum;
+use App\Models\SchoolClass;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class HomeWorkSubmissionsTable
 {
@@ -22,10 +26,6 @@ class HomeWorkSubmissionsTable
                 TextColumn::make('homework.name')
                     ->sortable()
                     ->translateLabel(),
-                // SelectColumn::make('home_work_status')->options(HomeWorkStatusEnum::labels())
-                //     ->placeholder('Без описания')
-                //     ->selectablePlaceholder(false)
-                //     ->translateLabel(),
                 TextColumn::make('home_work_status')
                     ->formatStateUsing(function ($state) {
                         $valueFromHomeworkEnum = HomeWorkStatusEnum::tryFrom($state)->label();
@@ -46,7 +46,9 @@ class HomeWorkSubmissionsTable
                     ->translateLabel(),
             ])
             ->filters([
-                //
+                SelectFilter::make('school_class_id')
+                    ->relationship('student.schoolClasses', 'name')
+                    ->label('Класс')
             ])
             ->recordActions([
                 EditAction::make(),

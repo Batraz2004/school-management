@@ -34,5 +34,6 @@
     "Two factor recovery codes": "Резервные коды двухфакторной аутентификации",
     "Two factor confirmed at": "Дата двухфакторного подвтвержения",
     "Role": "Роль",
-    "Guard name": "Название Guard"
+    "Guard name": "Название Guard",
+    "Evaluation": "Оценка"
 }
