@@ -15,30 +15,6 @@ class CreateHomework extends CreateRecord
 {
     protected static string $resource = HomeworkResource::class;
 
-    // protected function mutateFormDataBeforeCreate(array $data): array
-    // {
-    //     $schoolClassId = $data['school_class_id'];
-
-    //     $schoolClass = SchoolClass::query()->with('users')->find($schoolClassId);
-
-    //     if (filled($schoolClass)) {
-    //         foreach ($schoolClass->users as $user) {
-    //             if ($user->hasRole(RoleEnum::student->value)) {
-    //                 HomeWorkSubmission::query()->updateOrCreate([
-    //                     'subject_id' => $data['subject_id'],
-    //                     'student_id' => $user->id,
-    //                 ], [
-    //                     'subject_id' => $data['subject_id'],
-    //                     'student_id' => $user->id,
-    //                     'attendence_status' => HomeWorkStatusEnum::in_process->value,
-    //                 ]);
-    //             }
-    //         }
-    //     }
-
-    //     return $data;
-    // }
-
     protected function afterCreate(): void
     {
         /** @var Homework $homeWork  */
@@ -52,12 +28,10 @@ class CreateHomework extends CreateRecord
             foreach ($schoolClassUsers as $user) {
                 if ($user->hasRole(RoleEnum::student->value)) {
                     HomeWorkSubmission::query()->updateOrCreate([
-                        'subject_id' => $homeWork->subject_id,
-                        'student_id' => $user->id,
+                        'homework_id' => $homeWork->id,
+                        'student_id'  => $user->id,
                     ], [
-                        'subject_id' => $homeWork->subject_id,
-                        'student_id' => $user->id,
-                        'attendence_status' => HomeWorkStatusEnum::in_process->value,
+                        'home_work_status' => HomeWorkStatusEnum::in_process->value,
                     ]);
                 }
             }

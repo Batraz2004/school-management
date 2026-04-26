@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources\Users;
 use App\Filament\Admin\Resources\Users\Pages\CreateUser;
 use App\Filament\Admin\Resources\Users\Pages\EditUser;
 use App\Filament\Admin\Resources\Users\Pages\ListUsers;
+use App\Filament\Admin\Resources\Users\RelationManagers\GradesRelationManager;
 use App\Filament\Admin\Resources\Users\RelationManagers\RolesRelationManager;
 use App\Filament\Admin\Resources\Users\RelationManagers\SchoolClassesRelationManager;
 use App\Filament\Admin\Resources\Users\Schemas\UserForm;
@@ -44,6 +45,7 @@ class UserResource extends Resource
         return [
             RolesRelationManager::class,
             SchoolClassesRelationManager::class,
+            GradesRelationManager::class,
         ];
     }
 

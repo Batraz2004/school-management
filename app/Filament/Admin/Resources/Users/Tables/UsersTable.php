@@ -18,6 +18,7 @@ use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
@@ -71,6 +72,17 @@ class UsersTable
             ])
             ->filters([
                 TrashedFilter::make(),
+                SelectFilter::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->label('Роль')
+                    ->hidden(),
+                SelectFilter::make('schoolClasses')
+                    ->relationship('schoolClasses', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->label('Класс'),
             ])
             ->recordActions([
                 EditAction::make(),
