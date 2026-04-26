@@ -15,6 +15,7 @@ use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class GradesRelationManager extends RelationManager
 {
@@ -74,5 +75,10 @@ class GradesRelationManager extends RelationManager
                     ]),
                 DeleteAction::make(),
             ]);
+    }
+
+    public static function canViewForRecord(Model $ownerRecord, string $pageClass): bool
+    {
+        return !$ownerRecord->hasRole('admin');
     }
 }

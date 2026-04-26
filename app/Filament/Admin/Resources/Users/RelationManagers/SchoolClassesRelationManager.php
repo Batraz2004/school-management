@@ -8,6 +8,7 @@ use Filament\Actions\CreateAction;
 use Filament\Actions\DetachAction;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use League\Uri\Builder;
 
 class SchoolClassesRelationManager extends RelationManager
@@ -25,5 +26,10 @@ class SchoolClassesRelationManager extends RelationManager
             ->recordActions([
                 DetachAction::make(),
             ]);
+    }
+
+    public static function canViewForRecord(Model $ownerRecord, string $pageClass): bool
+    {
+        return !$ownerRecord->hasRole('admin');
     }
 }
