@@ -2,15 +2,17 @@
 
 namespace App\Enums;
 
-enum RoleEnum: string{
+enum RoleEnum: string
+{
+    use Enum;
+
     case admin = 'admin';
     case student = 'student';
     case teacher = 'teacher';
 
     public function label(): string
     {
-        return match($this)
-        {
+        return match ($this) {
             self::admin => 'Админ',
             self::student => 'Ученик',
             self::teacher => 'Учитель',
