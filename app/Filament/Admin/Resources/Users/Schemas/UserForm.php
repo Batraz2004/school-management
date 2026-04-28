@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\Users\Schemas;
 
+use App\Enums\RoleEnum;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -9,6 +10,8 @@ use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class UserForm
 {
@@ -54,14 +57,17 @@ class UserForm
                             Select::make('roles')
                                 ->label('Role')
                                 ->translateLabel()
-                                ->relationship('roles', 'name'),
+                                ->relationship('roles', 'name', function (Builder $query) {
+                                    return $query->whereNot('name', RoleEnum::admin->value);
+                                })
+                                ->getOptionLabelFromRecordUsing(fn(Model $record) => RoleEnum::tryFrom($record->name)->label()),
                             Select::make('schoolClasses')
                                 ->label('School class')
                                 ->translateLabel()
                                 ->relationship('schoolClasses', 'name'),
                         ]),
                 ]),
-        
+
                 Section::make()->columnSpan(1)->schema([
                     DateTimePicker::make('created_at')
                         ->translateLabel(),
