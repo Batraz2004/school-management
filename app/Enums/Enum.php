@@ -12,7 +12,7 @@ trait Enum
         foreach (self::cases() as $case) {
             $result[$case->name] = [
                 'value' => $case->value,
-                'label' => $case->label(),
+                'label' => method_exists($case, 'label') ? $case->label() : '',
             ];
         }
 
