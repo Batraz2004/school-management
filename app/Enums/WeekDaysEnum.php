@@ -28,4 +28,13 @@ enum WeekDaysEnum: string
             self::sunday    => 'воскресенье',
         };
     }
+
+    public static function values(): array
+    {
+        $result = [];
+        foreach (self::cases() as $item) {
+            $result[] = $item->value;
+        }
+        return $result;
+    }
 }

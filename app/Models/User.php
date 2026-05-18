@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -22,6 +23,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @property int $id
+ * @property Collection<int, SchoolClass> $schoolClasses
+ * @property Collection<int, Grade> $grades
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 

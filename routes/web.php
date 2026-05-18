@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('schedule_on_week', [ScheduleController::class, 'getCurrentWeekSchedule'])->name('schedule_on_week');
 });
 
-require __DIR__.'/settings.php';
-
-
+require __DIR__ . '/settings.php';

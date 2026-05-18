@@ -39,16 +39,16 @@ class UserForm
                                 ->required()
                                 ->translateLabel(),
 
-                            Grid::make()
-                                ->columnSpanFull()
-                                ->schema([
-                                    TextInput::make('two_factor_secret')
-                                        ->password()
-                                        ->translateLabel(),
-                                    TextInput::make('two_factor_recovery_codes')
-                                        ->password()
-                                        ->translateLabel(),
-                                ])
+                            // Grid::make()
+                            //     ->columnSpanFull()
+                            //     ->schema([
+                            //         TextInput::make('two_factor_secret')
+                            //             ->password()
+                            //             ->translateLabel(),
+                            //         TextInput::make('two_factor_recovery_codes')
+                            //             ->password()
+                            //             ->translateLabel(),
+                            //     ])
                         ]),
                     Section::make()
                         ->columns(2)

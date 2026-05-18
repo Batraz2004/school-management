@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
- * @property Collection<Attendence>|Attendence $attendences
+ * @property Collection<int,Attendence> $attendences
  * @property-read User $teacher
  * @property-read Lesson $lesson
  * @property-read SchoolClassRoom $schoolClassRoom
