@@ -5,45 +5,55 @@ namespace App\Services\Schedule;
 use App\Enums\WeekDaysEnum;
 use App\Models\SchoolClass;
 use App\Models\User;
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class ScheduleService
 {
-    /** @param User $user */
-    public function getCurrentWeekSchedule(User $user)
+    public function getCurrentWeekSchedule(User $user): array
     {
-        /** @var SchoolClass $schoolClass */
+        /** @var SchoolClass|null $schoolClass */
         $schoolClass = $user->schoolClasses()->first();
 
-        $currentWeekFirstDay = CarbonImmutable::now()
-            ->locale(config('app.locale'))
-            ->startOfWeek();
-        $currentWeekEndDay = CarbonImmutable::now()
-            ->locale(config('app.locale'))
-            ->endOfWeek();
+        $weekStart = CarbonImmutable::now()->locale(config('app.locale'))->startOfWeek();
+        $weekEnd   = $weekStart->endOfWeek();
 
-        $lessonsTemplateSchedule = $schoolClass
-            ->lessons()
+        $lessons = $schoolClass
+            ?->lessons()
             ->with('subject')
-            ->with('lessonInstances', function (Builder|HasMany $query) use ($currentWeekFirstDay, $currentWeekEndDay) {
-                $query->whereBetween('date_event', [
-                    $currentWeekFirstDay,
-                    $currentWeekEndDay,
-                ]);
-            })
-            ->orderBy('week_day')
+            ->with(['lessonInstances' => function (Builder|HasMany $query) use ($weekStart, $weekEnd) {
+                $query->whereBetween('date_event', [$weekStart, $weekEnd]);
+            }])
             ->orderBy('time_start')
-            ->get();
+            ->get() ?? collect();
 
-        $lessonsTemplateScheduleGroupByDays = $lessonsTemplateSchedule->groupBy('week_day');
+        $grouped = $lessons->groupBy('week_day');
 
-        $resultByEnumAndGroupDays = collect(WeekDaysEnum::cases())->mapWithKeys(
-            fn(WeekDaysEnum $day) => [$day->value => $lessonsTemplateScheduleGroupByDays->get($day->value, collect())]
+        $schedule = collect(WeekDaysEnum::cases())->mapWithKeys(
+            fn(WeekDaysEnum $day) => [$day->value => $grouped->get($day->value, collect())]
         );
 
-        return $resultByEnumAndGroupDays;
+        $timeSlots = $lessons
+            ->map(fn($lesson) => [
+                'start' => Carbon::parse($lesson->time_start)->format('H:i'),
+                'end'   => Carbon::parse($lesson->time_end)->format('H:i'),
+            ])
+            ->unique('start')
+            ->sortBy('start')
+            ->values();
+
+        return [
+            'schedule'    => $schedule,
+            'allLessons'  => $lessons,
+            'timeSlots'   => $timeSlots,
+            'weekStart'   => $weekStart,
+            'weekEnd'     => $weekEnd,
+            'weekDays'    => WeekDaysEnum::getWeekDays($weekStart),
+            'today'       => strtolower(now()->englishDayOfWeek),
+            'schoolClass' => $schoolClass,
+        ];
     }
 }

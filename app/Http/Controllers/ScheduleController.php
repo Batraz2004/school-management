@@ -15,10 +15,8 @@ class ScheduleController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        $currentWeekSchedule = $this->scheduleService->getCurrentWeekSchedule($user);
+        $data = $this->scheduleService->getCurrentWeekSchedule($user);
 
-        $viewName = 'pages.schedule.current-week_schedule';
-
-        return $this->getView($viewName, ['schedule' => $currentWeekSchedule]);
+        return view('pages.schedule.current-week_schedule', $data);
     }
 }
