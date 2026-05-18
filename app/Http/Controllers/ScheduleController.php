@@ -24,6 +24,6 @@ class ScheduleController extends Controller
 
         $currentWeekSchedule = $this->scheduleService->getCurrentWeekSchedule($user);
 
-        return view('pages.schedule.current-week_schedule', [$currentWeekSchedule]);
+        return view('pages.schedule.current-week_schedule', ['schedule' => $currentWeekSchedule]);
     }
 }
