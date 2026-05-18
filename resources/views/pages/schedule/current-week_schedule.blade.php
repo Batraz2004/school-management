@@ -27,9 +27,7 @@
 
                     {{-- Заголовок дня --}}
                     <div class="bg-sky-600 px-4 py-3 text-center">
-                        <span class="text-white font-semibold text-sm tracking-wide uppercase">
                             {{ $dayEnum->label() }}
-                        </span>
                     </div>
 
                     {{-- Уроки --}}

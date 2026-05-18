@@ -19,13 +19,13 @@ enum WeekDaysEnum: string
     public function label(): string
     {
         return match ($this) {
-            self::monday    => 'понидельник',
-            self::tuesday   => 'вторник',
-            self::wednesday => 'среда',
-            self::thursday  => 'четверг',
-            self::friday    => 'пятница',
-            self::saturday  => 'суббота',
-            self::sunday    => 'воскресенье',
+            self::monday    => 'Понидельник',
+            self::tuesday   => 'Вторник',
+            self::wednesday => 'Среда',
+            self::thursday  => 'Четверг',
+            self::friday    => 'Пятница',
+            self::saturday  => 'Суббота',
+            self::sunday    => 'Воскресенье',
         };
     }
 
