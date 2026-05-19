@@ -19,10 +19,6 @@ class SchoolClassesTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    // ->formatStateUsing(function ($state) {
-                        // $valueFromEnum = SchoolClassNameEnum::tryFrom($state);
-                        // return $valueFromEnum;
-                    // })
                     ->searchable()
                     ->translateLabel(),
                 TextColumn::make('academicYear.period')

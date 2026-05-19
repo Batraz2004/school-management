@@ -81,7 +81,9 @@
                                     @if($lesson)
                                         <div class="rounded-lg p-2.5 h-full flex flex-col gap-1"
                                             style="background: {{ $color }}12; border: 1px solid {{ $color }}25; border-left: 3px solid {{ $color }};">
-
+                                            @if(filled($lesson->subject["homeworks"]))
+                                            {{'📎'}}
+                                            @endif
                                             {{-- Предмет --}}
                                             <div class="text-xs font-bold leading-tight" style="color: {{ $color }}">
                                                 {{ $lesson->subject?->name ?? '—' }}
