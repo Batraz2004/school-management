@@ -8,8 +8,6 @@ use App\Models\SchoolClass;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class ScheduleService

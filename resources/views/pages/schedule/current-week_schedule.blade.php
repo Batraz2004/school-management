@@ -37,7 +37,7 @@
     @else
         {{-- Сетка расписания --}}
         <div class="bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-x-auto">
-            <table class="w-full border-collapse" style="min-width: 700px;">
+            <table class="border-collapse" style="width: auto; min-width: 100%">
                 {{-- Шапка дней --}}
                 <thead>
                     <tr class="border-b border-zinc-200 dark:border-zinc-700">
@@ -46,7 +46,7 @@
                         </th>
                         @foreach($weekDays as $dayKey => $dayInfo)
                             @php $isToday = $dayKey === $today; @endphp
-                            <th class="p-3 text-left border-r last:border-r-0 border-zinc-200 dark:border-zinc-700 {{ $isToday ? 'bg-sky-50 dark:bg-sky-900/20' : 'bg-zinc-50 dark:bg-zinc-800/50' }}">
+                            <th class="w-40 p-3 text-left border-r last:border-r-0 border-zinc-200 dark:border-zinc-700 {{ $isToday ? 'bg-sky-50 dark:bg-sky-900/20' : 'bg-zinc-50 dark:bg-zinc-800/50' }}">
                                 <div class="text-[11px] font-semibold uppercase tracking-wider {{ $isToday ? 'text-sky-600 dark:text-sky-400' : 'text-zinc-400' }}">
                                     {{ $dayInfo['short'] }}
                                 </div>
