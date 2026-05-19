@@ -75,7 +75,7 @@
                                     $lesson  = ($schedule[$dayKey] ?? collect())
                                         ->first(fn($l) => \Carbon\Carbon::parse($l->time_start)->format('H:i') === $slot['start']);
                                     $color   = $lesson ? $subjectColor($lesson->subject?->name) : null;
-                                    $instance = $lesson?->lessonInstances->first();
+                                    $instance = $lesson?->lessonInstances->first(); //first потому что на одно расписание в неделю у олдного предмета одно проведение
                                 @endphp
                                 <td class="p-2 border-r last:border-r-0 border-zinc-100 dark:border-zinc-700/50 align-top {{ $isToday ? 'bg-sky-50/30 dark:bg-sky-900/10' : '' }}">
                                     @if($lesson)
@@ -83,6 +83,9 @@
                                             style="background: {{ $color }}12; border: 1px solid {{ $color }}25; border-left: 3px solid {{ $color }};">
                                             @if(filled($lesson->subject["homeworks"]))
                                             {{'📎'}}
+                                            @endif
+                                            @if($instance?->control_work)
+                                            <span>⚠</span>
                                             @endif
                                             {{-- Предмет --}}
                                             <div class="text-xs font-bold leading-tight" style="color: {{ $color }}">

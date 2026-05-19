@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read User $teacher
  * @property-read Lesson $lesson
  * @property-read SchoolClassRoom $schoolClassRoom
+ * @property bool $control_work
  * @property Carbon $date_event
  * @property Carbon $created_at
  * @property Carbon $updated_at

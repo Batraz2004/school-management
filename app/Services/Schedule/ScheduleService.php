@@ -47,7 +47,7 @@ class ScheduleService
             ->unique('start')
             ->sortBy('start')
             ->values();
-
+        // dd($schedule->toArray());
         return [
             'schedule'    => $schedule,
             'allLessons'  => $lessons,

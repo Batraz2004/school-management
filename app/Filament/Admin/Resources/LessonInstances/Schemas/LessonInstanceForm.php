@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources\LessonInstances\Schemas;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
 class LessonInstanceForm
@@ -28,6 +29,8 @@ class LessonInstanceForm
                     ->translateLabel(),
                 Textarea::make('lesson_theme')
                     ->columnSpanFull()
+                    ->translateLabel(),
+                Toggle::make('control_work')
                     ->translateLabel(),
                 DatePicker::make('date_event')
                     ->required()
