@@ -53,7 +53,7 @@ class ScheduleService
 
         return [
             'schedule'    => $schedule,
-            'allLessons'  => $lessons,
+            'allLessonsCount'  => $lessons->count(),
             'timeSlots'   => $timeSlots,
             'weekStart'   => $weekStart,
             'weekEnd'     => $weekEnd,

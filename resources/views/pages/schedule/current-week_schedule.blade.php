@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    @if($allLessons->isEmpty())
+    @if($allLessonsCount === 0)
         <div class="bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 text-center py-16">
             <div class="text-4xl mb-3">📅</div>
             <div class="font-semibold text-zinc-700 dark:text-zinc-300">На этой неделе уроков нет</div>
