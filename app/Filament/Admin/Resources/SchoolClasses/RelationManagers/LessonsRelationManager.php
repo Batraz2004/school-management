@@ -3,7 +3,9 @@
 namespace App\Filament\Admin\Resources\SchoolClasses\RelationManagers;
 
 use App\Enums\WeekDaysEnum;
+use App\Filament\Admin\Resources\Lessons\LessonResource;
 use Filament\Actions\CreateAction;
+use Filament\Forms\Components\RichEditor\Actions\LinkAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TimePicker;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -13,6 +15,8 @@ use Filament\Tables\Table;
 class LessonsRelationManager extends RelationManager
 {
     protected static string $relationship = 'lessons';
+
+    // protected static ?string $relatedResource = LessonResource::class;
 
     public function table(Table $table): Table
     {
@@ -54,6 +58,8 @@ class LessonsRelationManager extends RelationManager
                         TimePicker::make('time_end')
                             ->required()->translateLabel(),
                     ]),
-            ]);
+            ])->recordUrl(
+                fn($record): string => LessonResource::getUrl('edit', ['record' => $record])
+            );
     }
 }

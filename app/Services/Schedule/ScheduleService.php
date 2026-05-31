@@ -12,12 +12,15 @@ use Illuminate\Support\Collection;
 
 class ScheduleService
 {
-    public function getCurrentWeekSchedule(User $user): array
+    public function getCurrentWeekSchedule(User $user, int $weekOffset = 0): array
     {
         /** @var SchoolClass|null $schoolClass */
         $schoolClass = $user->schoolClasses()->first();
 
-        $weekStart = CarbonImmutable::now()->locale(config('app.locale'))->startOfWeek();
+        $weekStart = CarbonImmutable::now()->locale(config('app.locale'))
+            ->startOfWeek()
+            ->addWeeks($weekOffset);
+
         $weekEnd   = $weekStart->endOfWeek();
         $today = strtolower(now()->englishDayOfWeek);
 
@@ -47,7 +50,7 @@ class ScheduleService
             ->unique('start')
             ->sortBy('start')
             ->values();
-        // dd($schedule->toArray());
+
         return [
             'schedule'    => $schedule,
             'allLessons'  => $lessons,

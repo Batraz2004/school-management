@@ -27,6 +27,8 @@ class Lesson extends Model
     {
         return [
             'week_day' => WeekDaysEnum::class,
+            'time_start' => 'datetime',
+            'time_end'   => 'datetime',
         ];
     }
 

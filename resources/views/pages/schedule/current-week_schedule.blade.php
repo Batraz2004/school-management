@@ -15,16 +15,20 @@
                 @if($schoolClass) · {{ $schoolClass->name }} @endif
             </p>
         </div>
+        @php $weekOffset = (int) request()->query('weekOffset', 0); @endphp
         <div class="flex items-center gap-2 mt-1">
-            <button class="p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
+            <a href="{{ route('switch_schedule_week', ['offset' => $weekOffset - 1]) }}"
+               class="p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
                 ←
-            </button>
-            <button class="px-4 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 text-sm font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+            </a>
+            <a href="{{ route('schedule_on_week') }}"
+               class="px-4 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 text-sm font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 {{ $weekOffset === 0 ? 'bg-zinc-100 dark:bg-zinc-700' : '' }}">
                 Эта неделя
-            </button>
-            <button class="p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
+            </a>
+            <a href="{{ route('switch_schedule_week', ['offset' => $weekOffset + 1]) }}"
+               class="p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
                 →
-            </button>
+            </a>
         </div>
     </div>
 
@@ -74,8 +78,9 @@
                                     $isToday = $dayKey === $today;
                                     $lesson  = ($schedule[$dayKey] ?? collect())
                                         ->first(fn($l) => \Carbon\Carbon::parse($l->time_start)->format('H:i') === $slot['start']);
-                                    $color   = $lesson ? $subjectColor($lesson->subject?->name) : null;
-                                    $instance = $lesson?->lessonInstances->first(); //first потому что на одно расписание в неделю у олдного предмета одно проведение
+                                    // $color   = $lesson ? $subjectColor($lesson->subject?->name) : null;
+                                    $color = "#0ea5e9";
+                                    $instance = $lesson?->lessonInstances->first(); //first потому что на одно расписание в неделю у одного предмета одно проведение
                                 @endphp
                                 <td class="p-2 border-r last:border-r-0 border-zinc-100 dark:border-zinc-700/50 align-top {{ $isToday ? 'bg-sky-50/30 dark:bg-sky-900/10' : '' }}">
                                     @if($lesson)
