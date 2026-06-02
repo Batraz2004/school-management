@@ -16,8 +16,7 @@
                 required
                 autofocus
                 autocomplete="name"
-                :placeholder="__('Full name')"
-            />
+                :placeholder="__('Full name')" />
 
             <!-- Email Address -->
             <flux:input
@@ -27,8 +26,7 @@
                 type="email"
                 required
                 autocomplete="email"
-                placeholder="email@example.com"
-            />
+                placeholder="email@example.com" />
 
             <!-- Password -->
             <flux:input
@@ -38,8 +36,7 @@
                 required
                 autocomplete="new-password"
                 :placeholder="__('Password')"
-                viewable
-            />
+                viewable />
 
             <!-- Confirm Password -->
             <flux:input
@@ -49,8 +46,22 @@
                 required
                 autocomplete="new-password"
                 :placeholder="__('Confirm password')"
-                viewable
-            />
+                viewable />
+
+            <!-- Role -->
+            <flux:select
+                name="role"
+                :label="__('Role')"
+                required
+                :placeholder="__('Select a role')">
+                @foreach($roles as $roleKey => $roleVal)
+                <flux:select.option value="{{$roleVal['value']}}">
+                    <div class="flex items-center gap-2">
+                        <flux:icon.shield-check variant="mini"  class="text-zinc-400" /> {{$roleVal['label']}}
+                    </div>
+                </flux:select.option>
+                @endforeach
+            </flux:select>
 
             <div class="flex items-center justify-end">
                 <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">

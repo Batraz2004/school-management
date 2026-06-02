@@ -20,6 +20,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -74,6 +76,7 @@ class UsersTable
                 TrashedFilter::make(),
                 SelectFilter::make('roles')
                     ->relationship('roles', 'name')
+                    ->getOptionLabelFromRecordUsing(fn(Model $record) => RoleEnum::tryFrom($record->name)->label())
                     ->multiple()
                     ->preload()
                     ->label('Роль'),

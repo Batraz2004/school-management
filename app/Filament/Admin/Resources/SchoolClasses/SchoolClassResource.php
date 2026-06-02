@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources\SchoolClasses;
 use App\Filament\Admin\Resources\SchoolClasses\Pages\CreateSchoolClass;
 use App\Filament\Admin\Resources\SchoolClasses\Pages\EditSchoolClass;
 use App\Filament\Admin\Resources\SchoolClasses\Pages\ListSchoolClasses;
+use App\Filament\Admin\Resources\SchoolClasses\RelationManagers\LessonsRelationManager;
 use App\Filament\Admin\Resources\SchoolClasses\RelationManagers\UsersRelationManager;
 use App\Filament\Admin\Resources\SchoolClasses\Schemas\SchoolClassForm;
 use App\Filament\Admin\Resources\SchoolClasses\Tables\SchoolClassesTable;
@@ -26,6 +27,8 @@ class SchoolClassResource extends Resource
     protected static ?string $pluralModelLabel = "Учебные классы";
     protected static ?string $modelLabel = "Учебный класс";
 
+    protected static ?string $recordTitleAttribute = 'name';
+
     public static function form(Schema $schema): Schema
     {
         return SchoolClassForm::configure($schema);
@@ -40,6 +43,7 @@ class SchoolClassResource extends Resource
     {
         return [
             UsersRelationManager::class,
+            LessonsRelationManager::class,
         ];
     }
 

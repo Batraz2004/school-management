@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources\Lessons;
 use App\Filament\Admin\Resources\Lessons\Pages\CreateLesson;
 use App\Filament\Admin\Resources\Lessons\Pages\EditLesson;
 use App\Filament\Admin\Resources\Lessons\Pages\ListLessons;
+use App\Filament\Admin\Resources\Lessons\RelationManagers\LessonInstancesRelationManager;
 use App\Filament\Admin\Resources\Lessons\Schemas\LessonForm;
 use App\Filament\Admin\Resources\Lessons\Tables\LessonsTable;
 use App\Models\Lesson;
@@ -36,7 +37,7 @@ class LessonResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            LessonInstancesRelationManager::class,
         ];
     }
 

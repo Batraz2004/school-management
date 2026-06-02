@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\WeekDaysEnum;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,6 +22,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Lesson extends Model
 {
     protected $guarded = [];
+
+    protected function casts(): array
+    {
+        return [
+            'week_day' => WeekDaysEnum::class,
+            'time_start' => 'datetime',
+            'time_end'   => 'datetime',
+        ];
+    }
 
     public function lessonInstances(): HasMany
     {
