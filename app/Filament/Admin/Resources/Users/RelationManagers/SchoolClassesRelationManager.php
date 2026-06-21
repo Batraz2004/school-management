@@ -4,12 +4,10 @@ namespace App\Filament\Admin\Resources\Users\RelationManagers;
 
 use App\Filament\Admin\Resources\SchoolClasses\SchoolClassResource;
 use Filament\Actions\AttachAction;
-use Filament\Actions\CreateAction;
 use Filament\Actions\DetachAction;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
-use League\Uri\Builder;
 
 class SchoolClassesRelationManager extends RelationManager
 {

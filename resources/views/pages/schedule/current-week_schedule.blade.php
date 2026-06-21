@@ -1,4 +1,4 @@
-<x-layouts::app :title="__('Расписание')">
+<x-layouts::app :title="__('Schedule')">
 <div style="max-width: 1152px; margin: 0 auto; padding: 0 1rem;">
     @php
         $palette = ['#0ea5e9','#8b5cf6','#10b981','#f59e0b','#ef4444','#6366f1','#ec4899','#14b8a6','#f97316','#84cc16'];
