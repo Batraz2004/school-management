@@ -5,12 +5,12 @@
             <div>
                 <h1 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Домашние задания</h1>
                 <p class="text-sm text-zinc-500 mt-1">
-                    Всего: {{ $homeworksPaginate->total() }}
+                    Всего: {{ $homeworksPaginate?->total() }}
                 </p>
             </div>
         </div>
 
-        @if($homeworksPaginate->isEmpty())
+        @if(blank($homeworksPaginate))
             <div class="bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 text-center py-16">
                 <div class="text-4xl mb-3">📎</div>
                 <div class="font-semibold text-zinc-700 dark:text-zinc-300">Домашних заданий нет</div>
