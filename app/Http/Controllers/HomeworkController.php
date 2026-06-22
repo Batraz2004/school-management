@@ -18,7 +18,9 @@ class HomeworkController extends Controller
 
         $perPage = $request->query('per_page', 7);
 
-        $homeworksPaginate = $this->homeworkService->paginate($user, $perPage);
+        $subjectId = $request->query('subject_index');
+
+        $homeworksPaginate = $this->homeworkService->paginate($user, $perPage, $subjectId);
 
         return view('pages.homeworks', [
             'homeworksPaginate' => $homeworksPaginate,
