@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\homework\HomeworkRequest;
 use App\Models\User;
 use App\Services\Homework\HomeworkService;
 use App\Services\Subject\SubjectService;
@@ -12,7 +13,7 @@ class HomeworkController extends Controller
 {
     public function __construct(public HomeworkService $homeworkService, public SubjectService $subjectService) {}
 
-    public function paginate(Request $request)
+    public function paginate(HomeworkRequest $request)
     {
         /** @var User $user */
         $user = Auth::user();
