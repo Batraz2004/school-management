@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Services\Homework\HomeworkService;
+use App\Services\Subject\SubjectService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeworkController extends Controller
 {
-    public function __construct(public HomeworkService $homeworkService) {}
+    public function __construct(public HomeworkService $homeworkService, public SubjectService $subjectService) {}
 
     public function paginate(Request $request)
     {
@@ -18,12 +19,14 @@ class HomeworkController extends Controller
 
         $perPage = $request->query('per_page', 7);
 
-        $subjectId = $request->query('subject_index');
+        $subjectId = $request->query('subject_id');
 
         $homeworksPaginate = $this->homeworkService->paginate($user, $perPage, $subjectId);
+        $subjects = $this->subjectService->get($user);
 
         return view('pages.homeworks', [
             'homeworksPaginate' => $homeworksPaginate,
+            'subjects' => $subjects,
         ]);
     }
 }
