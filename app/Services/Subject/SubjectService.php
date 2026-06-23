@@ -5,7 +5,7 @@ namespace App\Services\Subject;
 use App\Models\SchoolClass;
 use App\Models\Subject;
 use App\Models\User;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
 class SubjectService
 {

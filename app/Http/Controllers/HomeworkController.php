@@ -6,7 +6,6 @@ use App\Http\Requests\homework\HomeworkRequest;
 use App\Models\User;
 use App\Services\Homework\HomeworkService;
 use App\Services\Subject\SubjectService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeworkController extends Controller
