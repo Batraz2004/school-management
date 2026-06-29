@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeworkController extends Controller
 {
-    public function __construct(public HomeworkService $homeworkService, public SubjectService $subjectService) {}
+    public function __construct(
+        public HomeworkService $homeworkService,
+        public SubjectService $subjectService
+    ) {}
 
     public function paginate(HomeworkRequest $request)
     {
