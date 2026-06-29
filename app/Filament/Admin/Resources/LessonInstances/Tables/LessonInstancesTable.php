@@ -14,7 +14,7 @@ class LessonInstancesTable
     {
         return $table
             ->columns([
-                TextColumn::make('lesson.id')
+                TextColumn::make('lesson.subject.name')
                     ->searchable()
                     ->translateLabel(),
                 TextColumn::make('teacher.name')

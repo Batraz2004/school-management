@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property string $name
  * @property int $academicYearId
- * @property Collection<Homework> $homeworks
+ * @property Collection<int,Homework> $homeworks
  * @property Collection<Exam> $exams
  * @property Collection<Lesson> $lessons
  * @property Collection<Subject> $subjects
@@ -44,7 +44,7 @@ class SchoolClass extends Model
 
     public function subjects(): BelongsToMany
     {
-        return $this->belongsToMany(Subject::class);
+        return $this->belongsToMany(Subject::class, 'classes_subjects');
     }
 
     public function users(): BelongsToMany

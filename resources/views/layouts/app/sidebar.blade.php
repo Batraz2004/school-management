@@ -18,6 +18,9 @@
                     <flux:sidebar.item icon="calendar-days" :href="route('schedule_on_week')" :current="request()->routeIs('schedule_on_week')" wire:navigate>
                         {{ __('Schedule') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item icon="calendar-days" :href="route('homework_paginate')" :current="request()->routeIs('homework_paginate')" wire:navigate>
+                        {{ __('Homework') }}
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
